@@ -26,7 +26,7 @@ export default function Wishlist() {
     {
       id: '1',
       name: 'Charizard EX',
-      image: 'https://via.placeholder.com/100x140?text=Charizard',
+      image: '/images/charizard-ex-1.png',
       desiredCondition: 'Mint',
       maxPrice: 500,
       priority: 'high',
@@ -34,7 +34,7 @@ export default function Wishlist() {
     {
       id: '2',
       name: 'Blastoise Holo',
-      image: 'https://via.placeholder.com/100x140?text=Blastoise',
+      image: '/images/charizard-ex-3.jpg',
       desiredCondition: 'Near Mint',
       maxPrice: 300,
       priority: 'medium',
@@ -42,7 +42,7 @@ export default function Wishlist() {
     {
       id: '3',
       name: 'Venusaur 1st Edition',
-      image: 'https://via.placeholder.com/100x140?text=Venusaur',
+      image: '/images/ash-ketchum.jpg',
       desiredCondition: 'Excellent',
       maxPrice: 400,
       priority: 'high',
@@ -57,13 +57,13 @@ export default function Wishlist() {
   const getPriorityColor = (priority: string) => {
     switch (priority) {
       case 'high':
-        return 'bg-red-100 text-red-800';
+        return 'bg-red-900 text-red-200';
       case 'medium':
-        return 'bg-yellow-100 text-yellow-800';
+        return 'bg-yellow-900 text-yellow-200';
       case 'low':
-        return 'bg-green-100 text-green-800';
+        return 'bg-green-900 text-green-200';
       default:
-        return 'bg-gray-100 text-gray-800';
+        return 'bg-gray-900 text-gray-200';
     }
   };
 

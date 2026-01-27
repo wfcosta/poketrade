@@ -41,12 +41,12 @@ const mockMatches: Match[] = [
     userRating: 4.8,
     yourCard: {
       name: 'Pikachu Base Set',
-      image: 'https://via.placeholder.com/200x280?text=Pikachu',
+      image: '/images/charizard-ex-1.png',
       condition: 'Near Mint',
     },
     theirCard: {
       name: 'Charizard EX',
-      image: 'https://via.placeholder.com/200x280?text=Charizard',
+      image: '/images/charizard-ex-2.png',
       condition: 'Mint',
     },
     matchPercentage: 92,
@@ -59,12 +59,12 @@ const mockMatches: Match[] = [
     userRating: 4.6,
     yourCard: {
       name: 'Blastoise Holo',
-      image: 'https://via.placeholder.com/200x280?text=Blastoise',
+      image: '/images/charizard-ex-3.jpg',
       condition: 'Excellent',
     },
     theirCard: {
       name: 'Venusaur 1st Edition',
-      image: 'https://via.placeholder.com/200x280?text=Venusaur',
+      image: '/images/ash-ketchum.jpg',
       condition: 'Near Mint',
     },
     matchPercentage: 88,
@@ -77,12 +77,12 @@ const mockMatches: Match[] = [
     userRating: 4.9,
     yourCard: {
       name: 'Mewtwo EX',
-      image: 'https://via.placeholder.com/200x280?text=Mewtwo',
+      image: '/images/mewtwo-promo.jpg',
       condition: 'Mint',
     },
     theirCard: {
       name: 'Dragonite Holo',
-      image: 'https://via.placeholder.com/200x280?text=Dragonite',
+      image: '/images/dragonite-v.jpg',
       condition: 'Excellent',
     },
     matchPercentage: 85,
@@ -100,14 +100,18 @@ export default function Match() {
     setPassedMatches((prev) => [...prev, currentMatch.id]);
     if (currentIndex < mockMatches.length - 1) {
       setCurrentIndex((prev) => prev + 1);
+    } else {
+      setCurrentIndex(mockMatches.length);
     }
-    toast('Match descartado');
+    toast('Troca descartada');
   };
 
   const handleMatch = () => {
-    toast.success('Match aceito! Você pode conversar com o usuário.');
+    toast.success('Troca aceita! Você pode conversar com o usuário.');
     if (currentIndex < mockMatches.length - 1) {
       setCurrentIndex((prev) => prev + 1);
+    } else {
+      setCurrentIndex(mockMatches.length);
     }
   };
 
@@ -123,7 +127,7 @@ export default function Match() {
       {/* Header */}
       <div className="bg-card border-b border-border sticky top-0 z-10">
         <div className="max-w-4xl mx-auto px-4 py-6">
-          <h1 className="text-3xl font-bold text-foreground">Matches Ideais</h1>
+          <h1 className="text-3xl font-bold text-foreground">Trocas Ideais</h1>
           <p className="text-muted-foreground mt-1">
             Encontre trocas perfeitas com outros colecionadores
           </p>
@@ -289,7 +293,7 @@ export default function Match() {
 
             {/* Progress */}
             <div className="text-center text-sm text-muted-foreground">
-              Match {currentIndex + 1} de {mockMatches.length}
+              Troca {currentIndex + 1} de {mockMatches.length}
             </div>
           </div>
         )}
