@@ -13,6 +13,9 @@ import CardDetails from "./pages/CardDetails";
 import Checkout from "./pages/Checkout";
 import PosPraComprador from "./pages/PosPraComprador";
 import PosPraVendedor from "./pages/PosPraVendedor";
+import ProporTroca from "./pages/ProporTroca";
+import TrocaConfirmada from "./pages/TrocaConfirmada";
+import TrocaMesmaCidade from "./pages/TrocaMesmaCidade";
 
 /**
  * Design Philosophy: Minimalismo Escandinavo
@@ -37,6 +40,9 @@ function RouterContent() {
           {flowState === 'checkout' && <Checkout />}
           {flowState === 'pos-compra-comprador' && <PosPraComprador />}
           {flowState === 'pos-compra-vendedor' && <PosPraVendedor />}
+          {flowState === 'propor-troca' && <ProporTroca />}
+          {flowState === 'troca-confirmada' && <TrocaConfirmada />}
+          {flowState === 'troca-mesma-cidade' && <TrocaMesmaCidade />}
           
           {/* Main Navigation */}
           {!flowState && (
