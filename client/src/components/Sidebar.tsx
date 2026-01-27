@@ -1,4 +1,4 @@
-import { Home, Zap, Plus, Heart } from 'lucide-react';
+import { Home, Zap, Plus, Heart, Package } from 'lucide-react';
 import { useNavigation } from '@/contexts/NavigationContext';
 import { cn } from '@/lib/utils';
 
@@ -15,7 +15,7 @@ export default function Sidebar() {
 
   const navItems = [
     { id: 'home', label: 'Home', icon: Home },
-    { id: 'match', label: 'Match', icon: Zap },
+    { id: 'troca', label: 'Trocar', icon: Zap },
     { id: 'cadastro', label: 'Cadastro', icon: Plus },
     { id: 'wishlist', label: 'Wishlist', icon: Heart },
   ] as const;
@@ -56,10 +56,30 @@ export default function Sidebar() {
         })}
       </nav>
 
+      {/* Inventário - Separado */}
+      <div className="p-4 border-t border-border">
+        <button
+          onClick={() => setActiveTab('inventario' as any)}
+          className={cn(
+            'w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200',
+            'hover:bg-secondary',
+            activeTab === 'inventario'
+              ? 'bg-secondary text-accent font-semibold'
+              : 'text-foreground hover:text-accent'
+          )}
+        >
+          <Package className={cn('w-5 h-5', activeTab === 'inventario' && 'text-accent')} />
+          <span className="text-sm font-medium">Inventário</span>
+          {activeTab === 'inventario' && (
+            <div className="ml-auto w-1 h-6 bg-accent rounded-full" />
+          )}
+        </button>
+      </div>
+
       {/* Footer */}
       <div className="p-4 border-t border-border">
         <p className="text-xs text-muted-foreground text-center">
-          v1.0 Beta
+          v2.0 Beta
         </p>
       </div>
     </aside>

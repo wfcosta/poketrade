@@ -8,6 +8,11 @@ import Home from "./pages/Home";
 import Match from "./pages/Match";
 import Cadastro from "./pages/Cadastro";
 import Wishlist from "./pages/Wishlist";
+import Inventario from "./pages/Inventario";
+import CardDetails from "./pages/CardDetails";
+import Checkout from "./pages/Checkout";
+import PosPraComprador from "./pages/PosPraComprador";
+import PosPraVendedor from "./pages/PosPraVendedor";
 
 /**
  * Design Philosophy: Minimalismo Escandinavo
@@ -17,7 +22,7 @@ import Wishlist from "./pages/Wishlist";
  */
 
 function RouterContent() {
-  const { activeTab } = useNavigation();
+  const { activeTab, flowState } = useNavigation();
 
   return (
     <div className="flex h-screen bg-background">
@@ -27,10 +32,22 @@ function RouterContent() {
       {/* Main Content */}
       <main className="flex-1 flex flex-col overflow-hidden">
         <div className="flex-1 overflow-y-auto">
-          {activeTab === 'home' && <Home />}
-          {activeTab === 'match' && <Match />}
-          {activeTab === 'cadastro' && <Cadastro />}
-          {activeTab === 'wishlist' && <Wishlist />}
+          {/* Flow States */}
+          {flowState === 'card-details' && <CardDetails />}
+          {flowState === 'checkout' && <Checkout />}
+          {flowState === 'pos-compra-comprador' && <PosPraComprador />}
+          {flowState === 'pos-compra-vendedor' && <PosPraVendedor />}
+          
+          {/* Main Navigation */}
+          {!flowState && (
+            <>
+              {activeTab === 'home' && <Home />}
+              {activeTab === 'troca' && <Match />}
+              {activeTab === 'cadastro' && <Cadastro />}
+              {activeTab === 'wishlist' && <Wishlist />}
+              {activeTab === 'inventario' && <Inventario />}
+            </>
+          )}
         </div>
       </main>
 

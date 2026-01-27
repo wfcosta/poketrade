@@ -1,4 +1,4 @@
-import { Home, Zap, Plus, Heart } from 'lucide-react';
+import { Home, Zap, Plus, Heart, Package } from 'lucide-react';
 import { useNavigation } from '@/contexts/NavigationContext';
 import { cn } from '@/lib/utils';
 
@@ -15,9 +15,10 @@ export default function BottomNav() {
 
   const navItems = [
     { id: 'home', label: 'Home', icon: Home },
-    { id: 'match', label: 'Match', icon: Zap },
+    { id: 'troca', label: 'Trocar', icon: Zap },
     { id: 'cadastro', label: 'Cadastro', icon: Plus },
     { id: 'wishlist', label: 'Wishlist', icon: Heart },
+    { id: 'inventario', label: 'Inventário', icon: Package },
   ] as const;
 
   return (
