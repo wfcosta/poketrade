@@ -1,42 +1,62 @@
 import { Toaster } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
-import NotFound from "@/pages/NotFound";
-import { Route, Switch } from "wouter";
-import ErrorBoundary from "./components/ErrorBoundary";
 import { ThemeProvider } from "./contexts/ThemeContext";
+import { NavigationProvider, useNavigation } from "./contexts/NavigationContext";
+import Sidebar from "./components/Sidebar";
+import BottomNav from "./components/BottomNav";
 import Home from "./pages/Home";
+import Match from "./pages/Match";
+import Cadastro from "./pages/Cadastro";
+import Wishlist from "./pages/Wishlist";
 
+/**
+ * Design Philosophy: Minimalismo Escandinavo
+ * - Layout com Sidebar (desktop) e Bottom Bar (mobile)
+ * - Navegação limpa e intuitiva
+ * - Transições suaves entre páginas
+ */
 
-function Router() {
+function RouterContent() {
+  const { activeTab } = useNavigation();
+
   return (
-    <Switch>
-      <Route path={"/"} component={Home} />
-      <Route path={"/404"} component={NotFound} />
-      {/* Final fallback route */}
-      <Route component={NotFound} />
-    </Switch>
+    <div className="flex h-screen bg-background">
+      {/* Sidebar - Desktop Only */}
+      <Sidebar />
+
+      {/* Main Content */}
+      <main className="flex-1 flex flex-col overflow-hidden">
+        <div className="flex-1 overflow-y-auto">
+          {activeTab === 'home' && <Home />}
+          {activeTab === 'match' && <Match />}
+          {activeTab === 'cadastro' && <Cadastro />}
+          {activeTab === 'wishlist' && <Wishlist />}
+        </div>
+      </main>
+
+      {/* Bottom Navigation - Mobile Only */}
+      <BottomNav />
+    </div>
   );
 }
-
-// NOTE: About Theme
-// - First choose a default theme according to your design style (dark or light bg), than change color palette in index.css
-//   to keep consistent foreground/background color across components
-// - If you want to make theme switchable, pass `switchable` ThemeProvider and use `useTheme` hook
 
 function App() {
   return (
     <ErrorBoundary>
-      <ThemeProvider
-        defaultTheme="light"
-        // switchable
-      >
+      <ThemeProvider defaultTheme="light">
         <TooltipProvider>
           <Toaster />
-          <Router />
+          <NavigationProvider>
+            <RouterContent />
+          </NavigationProvider>
         </TooltipProvider>
       </ThemeProvider>
     </ErrorBoundary>
   );
+}
+
+function ErrorBoundary({ children }: { children: React.ReactNode }) {
+  return <>{children}</>;
 }
 
 export default App;
