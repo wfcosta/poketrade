@@ -83,7 +83,7 @@ export default function Wishlist() {
   return (
     <div className="flex-1 pb-20 lg:pb-0">
       {/* Header */}
-      <div className="bg-white border-b border-border sticky top-0 z-10">
+      <div className="bg-card border-b border-border sticky top-0 z-10">
         <div className="max-w-7xl mx-auto px-4 py-6">
           <h1 className="text-3xl font-bold text-foreground">Wishlist</h1>
           <p className="text-muted-foreground mt-1">
@@ -95,7 +95,7 @@ export default function Wishlist() {
       {/* Content */}
       <div className="max-w-7xl mx-auto px-4 py-8">
         {wishlistItems.length === 0 ? (
-          <Card className="p-12 text-center">
+          <Card className="p-12 text-center bg-card border-border">
             <Heart className="w-12 h-12 text-muted-foreground mx-auto mb-4" />
             <h2 className="text-xl font-semibold text-foreground mb-2">
               Sua wishlist está vazia
@@ -109,7 +109,7 @@ export default function Wishlist() {
             {wishlistItems.map((item) => (
               <Card
                 key={item.id}
-                className="p-4 hover:shadow-md transition-all duration-200 flex flex-col md:flex-row gap-4"
+                className="p-4 hover:shadow-md transition-all duration-200 flex flex-col md:flex-row gap-4 bg-card border-border"
               >
                 {/* Image */}
                 <div className="flex-shrink-0">

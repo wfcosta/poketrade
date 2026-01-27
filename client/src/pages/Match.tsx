@@ -121,7 +121,7 @@ export default function Match() {
   return (
     <div className="flex-1 pb-20 lg:pb-0">
       {/* Header */}
-      <div className="bg-white border-b border-border sticky top-0 z-10">
+      <div className="bg-card border-b border-border sticky top-0 z-10">
         <div className="max-w-4xl mx-auto px-4 py-6">
           <h1 className="text-3xl font-bold text-foreground">Matches Ideais</h1>
           <p className="text-muted-foreground mt-1">
@@ -133,7 +133,7 @@ export default function Match() {
       {/* Content */}
       <div className="max-w-4xl mx-auto px-4 py-8">
         {!hasMatches ? (
-          <Card className="p-12 text-center">
+          <Card className="p-12 text-center bg-card border-border">
             <Heart className="w-12 h-12 text-muted-foreground mx-auto mb-4" />
             <h2 className="text-xl font-semibold text-foreground mb-2">
               Sem mais matches
@@ -154,7 +154,7 @@ export default function Match() {
         ) : (
           <div className="space-y-6">
             {/* Match Card */}
-            <Card className="overflow-hidden">
+            <Card className="overflow-hidden bg-card border-border">
               {/* User Header */}
               <div className="bg-secondary p-4 flex items-center justify-between">
                 <div className="flex items-center gap-3">
@@ -178,7 +178,7 @@ export default function Match() {
               </div>
 
               {/* Match Content */}
-              <div className="p-6">
+              <div className="p-6 bg-card">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   {/* Your Card */}
                   <div className="text-center">
@@ -241,7 +241,7 @@ export default function Match() {
               </div>
 
               {/* Actions */}
-              <div className="bg-white border-t border-border p-6 flex gap-3 justify-center">
+              <div className="bg-card border-t border-border p-6 flex gap-3 justify-center">
                 <Button
                   onClick={handlePrevious}
                   disabled={currentIndex === 0}

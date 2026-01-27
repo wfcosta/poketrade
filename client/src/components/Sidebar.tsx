@@ -21,7 +21,7 @@ export default function Sidebar() {
   ] as const;
 
   return (
-    <aside className="hidden lg:flex flex-col w-64 bg-white border-r border-border h-screen sticky top-0">
+    <aside className="hidden lg:flex flex-col w-64 bg-card border-r border-border h-screen sticky top-0">
       {/* Header */}
       <div className="p-6 border-b border-border">
         <h1 className="text-2xl font-bold text-foreground">PokéTrade</h1>

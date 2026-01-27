@@ -65,7 +65,7 @@ export default function Cadastro() {
   return (
     <div className="flex-1 pb-20 lg:pb-0">
       {/* Header */}
-      <div className="bg-white border-b border-border sticky top-0 z-10">
+      <div className="bg-card border-b border-border sticky top-0 z-10">
         <div className="max-w-3xl mx-auto px-4 py-6">
           <h1 className="text-3xl font-bold text-foreground">Cadastrar Carta</h1>
           <p className="text-muted-foreground mt-1">
@@ -76,7 +76,7 @@ export default function Cadastro() {
 
       {/* Form Container */}
       <div className="max-w-3xl mx-auto px-4 py-8">
-        <Card className="p-6 md:p-8">
+        <Card className="p-6 md:p-8 bg-card border-border">
           <form onSubmit={handleSubmit} className="space-y-6">
             {/* Card Name */}
             <div className="space-y-2">
@@ -187,7 +187,7 @@ export default function Cadastro() {
         </Card>
 
         {/* Info Box */}
-        <Card className="mt-6 p-4 bg-secondary border-border">
+        <Card className="mt-6 p-4 bg-secondary border-border bg-card">
           <h3 className="font-semibold text-foreground text-sm">💡 Dica</h3>
           <p className="text-xs text-muted-foreground mt-2">
             Cartas em melhor estado (Mint) tendem a ter maior valor. Seja honesto

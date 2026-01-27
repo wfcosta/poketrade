@@ -5,11 +5,12 @@ import { Heart, ShoppingCart, Repeat2 } from 'lucide-react';
 import { useState } from 'react';
 
 /**
- * Design Philosophy: Minimalismo Escandinavo
+ * Design Philosophy: Minimalismo Escandinavo - Tema Escuro
  * - Grid assimétrico de cards com sombra suave
  * - Imagem da carta como foco principal
  * - Preço e estado em badges vermelhas
  * - Hover: elevação sutil com transição suave
+ * - Fundo preto/cinza escuro para tema escuro
  */
 
 interface PokemonCard {
@@ -23,12 +24,12 @@ interface PokemonCard {
   seller: string;
 }
 
-// Mock data - cards de exemplo
+// Mock data - cards de exemplo com imagens reais
 const mockCards: PokemonCard[] = [
   {
     id: '1',
     name: 'Charizard EX',
-    image: 'https://images.unsplash.com/photo-1612036782180-69c73116e76f?w=300&h=400&fit=crop',
+    image: '/images/charizard-ex-1.png',
     price: 450.00,
     condition: 'Mint',
     conditionScore: 10,
@@ -37,8 +38,8 @@ const mockCards: PokemonCard[] = [
   },
   {
     id: '2',
-    name: 'Blastoise Holo',
-    image: 'https://images.unsplash.com/photo-1570303008390-d1f3b0e5f0d5?w=300&h=400&fit=crop',
+    name: 'Charizard EX 151',
+    image: '/images/charizard-ex-2.png',
     price: 280.00,
     condition: 'Near Mint',
     conditionScore: 9,
@@ -47,8 +48,8 @@ const mockCards: PokemonCard[] = [
   },
   {
     id: '3',
-    name: 'Venusaur 1st Edition',
-    image: 'https://images.unsplash.com/photo-1516975080664-ed2fc6a32937?w=300&h=400&fit=crop',
+    name: 'Charizard EX Full Art',
+    image: '/images/charizard-ex-3.jpg',
     price: 520.00,
     condition: 'Mint',
     conditionScore: 10,
@@ -57,8 +58,8 @@ const mockCards: PokemonCard[] = [
   },
   {
     id: '4',
-    name: 'Pikachu Base Set',
-    image: 'https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?w=300&h=400&fit=crop',
+    name: 'Ash Ketchum GX',
+    image: '/images/ash-ketchum.jpg',
     price: 150.00,
     condition: 'Lightly Played',
     conditionScore: 7,
@@ -67,8 +68,8 @@ const mockCards: PokemonCard[] = [
   },
   {
     id: '5',
-    name: 'Mewtwo EX',
-    image: 'https://images.unsplash.com/photo-1578749556568-bc2c40e68b61?w=300&h=400&fit=crop',
+    name: 'Dragonite V',
+    image: '/images/dragonite-v.jpg',
     price: 380.00,
     condition: 'Excellent',
     conditionScore: 8,
@@ -77,8 +78,8 @@ const mockCards: PokemonCard[] = [
   },
   {
     id: '6',
-    name: 'Dragonite Holo',
-    image: 'https://images.unsplash.com/photo-1552820728-8ac41f1ce891?w=300&h=400&fit=crop',
+    name: 'Mewtwo Promo',
+    image: '/images/mewtwo-promo.jpg',
     price: 320.00,
     condition: 'Near Mint',
     conditionScore: 9,
@@ -98,15 +99,15 @@ export default function Home() {
 
   const getConditionColor = (score: number) => {
     if (score === 10) return 'bg-accent text-white';
-    if (score >= 8) return 'bg-green-100 text-green-800';
-    if (score >= 6) return 'bg-yellow-100 text-yellow-800';
-    return 'bg-orange-100 text-orange-800';
+    if (score >= 8) return 'bg-green-900 text-green-200';
+    if (score >= 6) return 'bg-yellow-900 text-yellow-200';
+    return 'bg-orange-900 text-orange-200';
   };
 
   return (
     <div className="flex-1 pb-20 lg:pb-0">
       {/* Header */}
-      <div className="bg-white border-b border-border sticky top-0 z-10">
+      <div className="bg-card border-b border-border sticky top-0 z-10">
         <div className="max-w-7xl mx-auto px-4 py-6">
           <h1 className="text-3xl font-bold text-foreground">Marketplace</h1>
           <p className="text-muted-foreground mt-1">
@@ -121,7 +122,7 @@ export default function Home() {
           {mockCards.map((card) => (
             <Card
               key={card.id}
-              className="overflow-hidden hover:shadow-lg transition-all duration-200 hover:-translate-y-1 cursor-pointer group"
+              className="overflow-hidden hover:shadow-lg transition-all duration-200 hover:-translate-y-1 cursor-pointer group bg-card border-border"
             >
               {/* Card Image Container */}
               <div className="relative bg-secondary aspect-[3/4] overflow-hidden">
@@ -134,7 +135,7 @@ export default function Home() {
                 {/* Wishlist Button */}
                 <button
                   onClick={() => toggleWishlist(card.id)}
-                  className="absolute top-2 right-2 p-2 bg-white rounded-full shadow-md hover:bg-secondary transition-colors"
+                  className="absolute top-2 right-2 p-2 bg-card rounded-full shadow-md hover:bg-secondary transition-colors border border-border"
                 >
                   <Heart
                     className={`w-5 h-5 ${
