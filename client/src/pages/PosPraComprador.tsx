@@ -210,10 +210,10 @@ export default function PosPraComprador() {
               <h3 className="font-semibold text-foreground mb-4">Vendedor</h3>
               <div className="flex items-center gap-3 mb-4">
                 <div className="w-12 h-12 rounded-full bg-accent flex items-center justify-center text-white font-bold">
-                  {selectedCard.seller.charAt(0)}
+                  {selectedCard.vendorName.charAt(0)}
                 </div>
                 <div>
-                  <p className="font-medium text-foreground">{selectedCard.seller}</p>
+                  <p className="font-medium text-foreground">{selectedCard.vendorName}</p>
                   <p className="text-muted-foreground text-sm">⭐ 4.8</p>
                 </div>
               </div>

@@ -15,7 +15,7 @@ import { useData } from '@/contexts/DataContext';
  */
 
 export default function Home() {
-  const { setFlowState } = useNavigation();
+  const { setFlowState, setSelectedCard } = useNavigation();
   const { cards } = useData();
   const [searchQuery, setSearchQuery] = useState('');
   const [filterCondition, setFilterCondition] = useState<string>('all');
@@ -46,9 +46,11 @@ export default function Home() {
   }, [cards, searchQuery, filterCondition, filterPrice, sortBy]);
 
   const handleCardClick = (cardId: string) => {
-    // Passar card ID via estado
-    sessionStorage.setItem('selectedCardId', cardId);
-    setFlowState('card-details');
+    const selectedCard = cards.find(c => c.id === cardId);
+    if (selectedCard) {
+      setSelectedCard(selectedCard);
+      setFlowState('card-details');
+    }
   };
 
   return (

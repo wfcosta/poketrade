@@ -55,7 +55,7 @@ export default function CardDetails() {
           </button>
           <div>
             <h1 className="text-2xl font-bold text-foreground">{selectedCard.name}</h1>
-            <p className="text-muted-foreground text-sm">por {selectedCard.seller}</p>
+            <p className="text-muted-foreground text-sm">por {selectedCard.vendorName}</p>
           </div>
         </div>
       </div>
@@ -130,10 +130,10 @@ export default function CardDetails() {
               <p className="text-foreground font-semibold mb-2">Vendedor</p>
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 rounded-full bg-accent flex items-center justify-center text-white font-bold">
-                  {selectedCard.seller.charAt(0)}
+                  {selectedCard.vendorName.charAt(0)}
                 </div>
                 <div>
-                  <p className="text-foreground font-medium">{selectedCard.seller}</p>
+                  <p className="text-foreground font-medium">{selectedCard.vendorName}</p>
                   <p className="text-muted-foreground text-sm">⭐ 4.8 (234 avaliações)</p>
                 </div>
               </div>
