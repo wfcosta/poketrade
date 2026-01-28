@@ -217,7 +217,7 @@ const MOCK_TRANSACTIONS: Transaction[] = [
     type: 'buy',
     cardId: '1',
     cardName: 'Charizard EX',
-    cardImage: '/images/charizard-ex.jpg',
+    cardImage: '/images/charizard-ex-3.jpg',
     buyerId: '1',
     buyerName: 'João Silva',
     sellerId: '2',

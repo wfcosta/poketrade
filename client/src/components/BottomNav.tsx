@@ -11,7 +11,12 @@ import { cn } from '@/lib/utils';
  */
 
 export default function BottomNav() {
-  const { activeTab, setActiveTab } = useNavigation();
+  const { activeTab, setActiveTab, setFlowState } = useNavigation();
+
+  const handleNavigation = (tab: any) => {
+    setFlowState(null); // Limpar fluxo ao navegar
+    setActiveTab(tab);
+  };
 
   const navItems = [
     { id: 'home', label: 'Home', icon: Home },
@@ -31,7 +36,7 @@ export default function BottomNav() {
           return (
             <button
               key={item.id}
-              onClick={() => setActiveTab(item.id as any)}
+              onClick={() => handleNavigation(item.id as any)}
               className={cn(
                 'flex flex-col items-center justify-center w-16 h-16 transition-all duration-200',
                 isActive ? 'text-accent' : 'text-muted-foreground hover:text-foreground'

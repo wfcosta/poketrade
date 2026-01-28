@@ -83,7 +83,7 @@ export default function Checkout() {
                   <p className="text-muted-foreground text-sm">
                     {selectedCard.condition} - {selectedCard.conditionScore}/10
                   </p>
-                  <p className="text-muted-foreground text-sm mt-2">Vendedor: {selectedCard.seller}</p>
+                  <p className="text-muted-foreground text-sm mt-2">Vendedor: {selectedCard.vendorName}</p>
                 </div>
               </div>
             </Card>

@@ -12,8 +12,13 @@ import { cn } from '@/lib/utils';
  */
 
 export default function Sidebar() {
-  const { activeTab, setActiveTab } = useNavigation();
+  const { activeTab, setActiveTab, setFlowState } = useNavigation();
   const { logout } = useAuth();
+
+  const handleNavigation = (tab: any) => {
+    setFlowState(null); // Limpar fluxo ao navegar
+    setActiveTab(tab);
+  };
 
   const navItems = [
     { id: 'home', label: 'Home', icon: Home },
@@ -39,7 +44,7 @@ export default function Sidebar() {
           return (
             <button
               key={item.id}
-              onClick={() => setActiveTab(item.id as any)}
+              onClick={() => handleNavigation(item.id as any)}
               className={cn(
                 'w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200',
                 'hover:bg-secondary',
@@ -61,7 +66,7 @@ export default function Sidebar() {
       {/* Inventário e Secundários */}
       <div className="p-4 border-t border-border space-y-2">
         <button
-          onClick={() => setActiveTab('inventario' as any)}
+          onClick={() => handleNavigation('inventario' as any)}
           className={cn(
             'w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200',
             'hover:bg-secondary',
@@ -78,7 +83,7 @@ export default function Sidebar() {
         </button>
 
         <button
-          onClick={() => setActiveTab('historico' as any)}
+          onClick={() => handleNavigation('historico' as any)}
           className={cn(
             'w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200',
             'hover:bg-secondary',
@@ -95,7 +100,7 @@ export default function Sidebar() {
         </button>
 
         <button
-          onClick={() => setActiveTab('notificacoes' as any)}
+          onClick={() => handleNavigation('notificacoes' as any)}
           className={cn(
             'w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200',
             'hover:bg-secondary',
@@ -115,7 +120,7 @@ export default function Sidebar() {
       {/* Footer */}
       <div className="p-4 border-t border-border space-y-2">
         <button
-          onClick={() => setActiveTab('perfil' as any)}
+          onClick={() => handleNavigation('perfil' as any)}
           className={cn(
             'w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200',
             'hover:bg-secondary',
