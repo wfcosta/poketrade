@@ -3,9 +3,11 @@ import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Upload, Clock, AlertCircle } from 'lucide-react';
+import { Upload, Clock, AlertCircle, ArrowLeft } from 'lucide-react';
 import { useState } from 'react';
 import { useNavigation } from '@/contexts/NavigationContext';
+import { useAuth } from '@/contexts/AuthContext';
+import { useData } from '@/contexts/DataContext';
 import { toast } from 'sonner';
 
 /**
@@ -18,6 +20,8 @@ import { toast } from 'sonner';
 
 export default function PosPraVendedor() {
   const { selectedCard, setFlowState } = useNavigation();
+  const { user } = useAuth();
+  const { updateTransaction, transactions } = useData();
   const [photoUploaded, setPhotoUploaded] = useState(false);
   const [trackingCode, setTrackingCode] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -47,8 +51,22 @@ export default function PosPraVendedor() {
 
     setIsSubmitting(true);
     await new Promise((resolve) => setTimeout(resolve, 1500));
+    
+    // Atualizar transação
+    if (selectedCard && user) {
+      const transaction = transactions.find(t => t.cardId === selectedCard.id && t.sellerId === user.id);
+      if (transaction) {
+        updateTransaction(transaction.id, {
+          status: 'shipped',
+          trackingCode,
+          shippingDate: new Date().toISOString(),
+        });
+      }
+    }
+    
     setIsSubmitting(false);
     toast.success('Pedido enviado! Comprador receberá notificação.');
+    setFlowState(null);
   };
 
   return (
@@ -56,8 +74,20 @@ export default function PosPraVendedor() {
       {/* Header */}
       <div className="bg-card border-b border-border sticky top-0 z-10">
         <div className="max-w-4xl mx-auto px-4 py-6">
-          <h1 className="text-2xl font-bold text-foreground">Preparar Envio</h1>
-          <p className="text-muted-foreground mt-1">Pedido #2024001</p>
+          <div className="flex items-center gap-4">
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={() => setFlowState(null)}
+              className="text-foreground hover:bg-muted"
+            >
+              <ArrowLeft className="w-5 h-5" />
+            </Button>
+            <div>
+              <h1 className="text-2xl font-bold text-foreground">Preparar Envio</h1>
+              <p className="text-muted-foreground mt-1">Você tem 2 dias para enviar</p>
+            </div>
+          </div>
         </div>
       </div>
 

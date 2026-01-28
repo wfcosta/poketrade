@@ -64,7 +64,7 @@ const mockMatches: Match[] = [
     },
     theirCard: {
       name: 'Venusaur 1st Edition',
-      image: '/images/ash-ketchum.jpg',
+      image: '/images/holo-collection.jpg',
       condition: 'Near Mint',
     },
     matchPercentage: 88,
