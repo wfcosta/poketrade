@@ -2,6 +2,8 @@ import { Toaster } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import { NavigationProvider, useNavigation } from "./contexts/NavigationContext";
+import { AuthProvider, useAuth } from "./contexts/AuthContext";
+import { DataProvider } from "./contexts/DataContext";
 import Sidebar from "./components/Sidebar";
 import BottomNav from "./components/BottomNav";
 import Home from "./pages/Home";
@@ -17,6 +19,11 @@ import PosPraVendedor2 from "./pages/PosPraVendedor2";
 import ProporTroca from "./pages/ProporTroca";
 import TrocaConfirmada from "./pages/TrocaConfirmada";
 import TrocaMesmaCidade from "./pages/TrocaMesmaCidade";
+import AcompanharCompra from "./pages/AcompanharCompra";
+import Login from "./pages/Login";
+import Profile from "./pages/Profile";
+import Historico from "./pages/Historico";
+import Notificacoes from "./pages/Notificacoes";
 
 /**
  * Design Philosophy: Minimalismo Escandinavo
@@ -27,6 +34,12 @@ import TrocaMesmaCidade from "./pages/TrocaMesmaCidade";
 
 function RouterContent() {
   const { activeTab, flowState } = useNavigation();
+  const { isLoggedIn } = useAuth();
+
+  // Se não está logado, mostra login
+  if (!isLoggedIn) {
+    return <Login />;
+  }
 
   return (
     <div className="flex h-screen bg-background">
@@ -45,6 +58,7 @@ function RouterContent() {
           {flowState === 'propor-troca' && <ProporTroca />}
           {flowState === 'troca-confirmada' && <TrocaConfirmada />}
           {flowState === 'troca-mesma-cidade' && <TrocaMesmaCidade />}
+          {flowState === 'acompanhar-compra' && <AcompanharCompra />}
           
           {/* Main Navigation */}
           {!flowState && (
@@ -54,6 +68,9 @@ function RouterContent() {
               {activeTab === 'cadastro' && <Cadastro />}
               {activeTab === 'wishlist' && <Wishlist />}
               {activeTab === 'inventario' && <Inventario />}
+              {activeTab === 'perfil' && <Profile />}
+              {activeTab === 'historico' && <Historico />}
+              {activeTab === 'notificacoes' && <Notificacoes />}
             </>
           )}
         </div>
@@ -71,9 +88,13 @@ function App() {
       <ThemeProvider defaultTheme="dark">
         <TooltipProvider>
           <Toaster />
-          <NavigationProvider>
-            <RouterContent />
-          </NavigationProvider>
+          <AuthProvider>
+            <DataProvider>
+              <NavigationProvider>
+                <RouterContent />
+              </NavigationProvider>
+            </DataProvider>
+          </AuthProvider>
         </TooltipProvider>
       </ThemeProvider>
     </ErrorBoundary>

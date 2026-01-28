@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useState } from 'react';
 
-export type NavTab = 'home' | 'troca' | 'cadastro' | 'wishlist' | 'inventario' | 'perfil';
-export type FlowState = 'card-details' | 'checkout' | 'pos-compra-vendedor' | 'pos-compra-comprador' | 'pos-venda-vendedor' | 'propor-troca' | 'troca-confirmada' | 'troca-mesma-cidade' | null;
+export type NavTab = 'home' | 'troca' | 'cadastro' | 'wishlist' | 'inventario' | 'perfil' | 'historico' | 'notificacoes' | 'login';
+export type FlowState = 'card-details' | 'checkout' | 'pos-compra-vendedor' | 'pos-compra-comprador' | 'pos-venda-vendedor' | 'propor-troca' | 'troca-confirmada' | 'troca-mesma-cidade' | 'acompanhar-compra' | null;
 
 interface NavigationContextType {
   activeTab: NavTab;
