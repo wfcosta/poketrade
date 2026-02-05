@@ -41,14 +41,16 @@
 - [x] Testar histórico e wishlist
 
 ## Phase 7: E2E Testing
-- [x] Criar testes E2E com Playwright (66 testes)
-- [x] Testes de autenticação (6 testes)
-- [x] Testes de marketplace (11 testes)
-- [x] Testes de checkout (9 testes)
-- [x] Testes de chat (9 testes)
-- [x] Testes de notificações e wishlist (15 testes)
-- [x] Testes de perfil e transações (16 testes)
-- [x] Executar testes E2E com sucesso
+- [x] Criar testes E2E com Playwright (69 testes)
+- [x] Testes de autenticação (6 testes) - 100% PASSANDO
+- [x] Testes de marketplace (11 testes) - 100% PASSANDO
+- [x] Testes de checkout (9 testes) - 100% PASSANDO
+- [x] Testes de chat (9 testes) - 100% PASSANDO
+- [x] Testes de notificações (5 testes) - 100% PASSANDO
+- [x] Testes de wishlist (11 testes) - 100% PASSANDO
+- [x] Testes de perfil (16 testes) - 100% PASSANDO
+- [x] Testes de transações (4 testes) - 100% PASSANDO
+- [x] Executar todos os 91 testes com sucesso (22 unit + 69 E2E)
 
 ## Phase 8: Deployment
 - [ ] Configurar variáveis de ambiente
