@@ -3,8 +3,8 @@ import { Card } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Heart, ShoppingCart, Repeat2, Search, ChevronDown } from 'lucide-react';
 import { useState, useMemo } from 'react';
-import { useNavigation } from '@/contexts/NavigationContext';
-import { useData } from '@/contexts/DataContext';
+import { useAuth } from '@/_core/hooks/useAuth';
+import { getLoginUrl } from '@/const';
 
 /**
  * Design Philosophy: Minimalismo Escandinavo - Tema Escuro
@@ -14,9 +14,51 @@ import { useData } from '@/contexts/DataContext';
  * - Preço e estado em badges vermelhas
  */
 
+// Mock data - será substituído por API real
+const mockCards = [
+  {
+    id: '1',
+    name: 'Charizard EX',
+    series: 'Base Set',
+    number: '4/102',
+    image: '/images/charizard-ex-1.png',
+    price: 1500,
+    condition: 'Mint',
+    conditionScore: 10,
+    vendorName: 'TradePro',
+    acceptsTrade: true,
+    createdAt: new Date().toISOString(),
+  },
+  {
+    id: '2',
+    name: 'Pikachu Base Set',
+    series: 'Base Set',
+    number: '25/102',
+    image: '/images/charizard-ex-3.png',
+    price: 800,
+    condition: 'Near Mint',
+    conditionScore: 9,
+    vendorName: 'CardCollector',
+    acceptsTrade: false,
+    createdAt: new Date().toISOString(),
+  },
+  {
+    id: '3',
+    name: 'Mewtwo Promo',
+    series: 'Promo',
+    number: 'PROMO',
+    image: '/images/charizard-ex-2.png',
+    price: 2000,
+    condition: 'Mint',
+    conditionScore: 10,
+    vendorName: 'VintageCards',
+    acceptsTrade: true,
+    createdAt: new Date().toISOString(),
+  },
+];
+
 export default function Home() {
-  const { setFlowState, setSelectedCard } = useNavigation();
-  const { cards } = useData();
+  const { user, loading, isAuthenticated } = useAuth();
   const [searchQuery, setSearchQuery] = useState('');
   const [filterCondition, setFilterCondition] = useState<string>('all');
   const [filterPrice, setFilterPrice] = useState<{ min: number; max: number }>({ min: 0, max: 10000 });
@@ -24,7 +66,7 @@ export default function Home() {
 
   // Filtrar e buscar
   const filteredCards = useMemo(() => {
-    let result = cards.filter(card => {
+    let result = mockCards.filter(card => {
       const matchesSearch = card.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
                            card.series.toLowerCase().includes(searchQuery.toLowerCase());
       const matchesCondition = filterCondition === 'all' || card.condition === filterCondition;
@@ -43,15 +85,32 @@ export default function Home() {
     }
 
     return result;
-  }, [cards, searchQuery, filterCondition, filterPrice, sortBy]);
+  }, [searchQuery, filterCondition, filterPrice, sortBy]);
 
-  const handleCardClick = (cardId: string) => {
-    const selectedCard = cards.find(c => c.id === cardId);
-    if (selectedCard) {
-      setSelectedCard(selectedCard);
-      setFlowState('card-details');
-    }
-  };
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-background flex items-center justify-center">
+        <p className="text-muted-foreground">Carregando...</p>
+      </div>
+    );
+  }
+
+  if (!isAuthenticated) {
+    return (
+      <div className="min-h-screen bg-background flex items-center justify-center">
+        <div className="text-center">
+          <h1 className="text-3xl font-bold text-foreground mb-4">PokéTrade</h1>
+          <p className="text-muted-foreground mb-6">Faça login para acessar o marketplace</p>
+          <Button 
+            onClick={() => window.location.href = getLoginUrl()}
+            className="bg-red-600 hover:bg-red-700"
+          >
+            Entrar
+          </Button>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-background">
@@ -153,7 +212,6 @@ export default function Home() {
             {filteredCards.map((card) => (
               <div
                 key={card.id}
-                onClick={() => handleCardClick(card.id)}
                 className="bg-card border border-border rounded-lg overflow-hidden hover:border-red-600/50 transition-all duration-200 cursor-pointer group"
               >
                 {/* Imagem */}
@@ -204,10 +262,6 @@ export default function Home() {
                   {/* Botões */}
                   <div className="flex gap-2">
                     <Button
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        handleCardClick(card.id);
-                      }}
                       className="flex-1 bg-red-600 hover:bg-red-700 text-white gap-2 h-9"
                     >
                       <ShoppingCart className="w-4 h-4" />

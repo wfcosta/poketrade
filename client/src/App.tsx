@@ -31,7 +31,6 @@ import Notificacoes from "./pages/Notificacoes";
  * - Navegação limpa e intuitiva
  * - Transições suaves entre páginas
  */
-
 function RouterContent() {
   const { activeTab, flowState } = useNavigation();
   const { isLoggedIn } = useAuth();
@@ -41,6 +40,7 @@ function RouterContent() {
     return <Login />;
   }
 
+  // make sure to consider if you need authentication for certain routes
   return (
     <div className="flex h-screen bg-background">
       {/* Sidebar - Desktop Only */}
