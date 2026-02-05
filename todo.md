@@ -40,7 +40,17 @@
 - [x] Testar upload de arquivos
 - [x] Testar histórico e wishlist
 
-## Phase 7: Deployment
+## Phase 7: E2E Testing
+- [x] Criar testes E2E com Playwright (66 testes)
+- [x] Testes de autenticação (6 testes)
+- [x] Testes de marketplace (11 testes)
+- [x] Testes de checkout (9 testes)
+- [x] Testes de chat (9 testes)
+- [x] Testes de notificações e wishlist (15 testes)
+- [x] Testes de perfil e transações (16 testes)
+- [x] Executar testes E2E com sucesso
+
+## Phase 8: Deployment
 - [ ] Configurar variáveis de ambiente
 - [ ] Fazer build de produção
 - [ ] Deploy para plataforma (Railway/Vercel/Render)
