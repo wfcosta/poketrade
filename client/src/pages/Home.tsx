@@ -1,61 +1,10 @@
 import { Button } from '@/components/ui/button';
-import { Card } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
-import { Heart, ShoppingCart, Repeat2, Search, ChevronDown } from 'lucide-react';
+import { Heart, ShoppingCart, Repeat2, Search } from 'lucide-react';
 import { useState, useMemo } from 'react';
 import { useAuth } from '@/_core/hooks/useAuth';
 import { getLoginUrl } from '@/const';
-
-/**
- * Design Philosophy: Minimalismo Escandinavo - Tema Escuro
- * - Campo de busca no topo com filtros
- * - Grid mobile 1 coluna, desktop 4 colunas
- * - Imagem da carta como foco principal
- * - Preço e estado em badges vermelhas
- */
-
-// Mock data - será substituído por API real
-const mockCards = [
-  {
-    id: '1',
-    name: 'Charizard EX',
-    series: 'Base Set',
-    number: '4/102',
-    image: '/images/charizard-ex-1.png',
-    price: 1500,
-    condition: 'Mint',
-    conditionScore: 10,
-    vendorName: 'TradePro',
-    acceptsTrade: true,
-    createdAt: new Date().toISOString(),
-  },
-  {
-    id: '2',
-    name: 'Pikachu Base Set',
-    series: 'Base Set',
-    number: '25/102',
-    image: '/images/charizard-ex-3.png',
-    price: 800,
-    condition: 'Near Mint',
-    conditionScore: 9,
-    vendorName: 'CardCollector',
-    acceptsTrade: false,
-    createdAt: new Date().toISOString(),
-  },
-  {
-    id: '3',
-    name: 'Mewtwo Promo',
-    series: 'Promo',
-    number: 'PROMO',
-    image: '/images/charizard-ex-2.png',
-    price: 2000,
-    condition: 'Mint',
-    conditionScore: 10,
-    vendorName: 'VintageCards',
-    acceptsTrade: true,
-    createdAt: new Date().toISOString(),
-  },
-];
+import { trpc } from '@/lib/trpc';
 
 export default function Home() {
   const { user, loading, isAuthenticated } = useAuth();
@@ -64,28 +13,31 @@ export default function Home() {
   const [filterPrice, setFilterPrice] = useState<{ min: number; max: number }>({ min: 0, max: 10000 });
   const [sortBy, setSortBy] = useState<'price-asc' | 'price-desc' | 'newest'>('newest');
 
-  // Filtrar e buscar
+  // Fetch cards from API
+  const { data: cardsData = [], isLoading: cardsLoading } = trpc.cards.list.useQuery();
+  const { data: searchResults = [] } = trpc.cards.search.useQuery(
+    { query: searchQuery },
+    { enabled: searchQuery.length > 0 }
+  );
+
+  // Filter and sort
   const filteredCards = useMemo(() => {
-    let result = mockCards.filter(card => {
-      const matchesSearch = card.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                           card.series.toLowerCase().includes(searchQuery.toLowerCase());
+    const source = searchQuery.length > 0 ? searchResults : cardsData;
+    
+    let result = source.filter((card: any) => {
       const matchesCondition = filterCondition === 'all' || card.condition === filterCondition;
       const matchesPrice = card.price >= filterPrice.min && card.price <= filterPrice.max;
-      
-      return matchesSearch && matchesCondition && matchesPrice;
+      return matchesCondition && matchesPrice;
     });
 
-    // Ordenar
     if (sortBy === 'price-asc') {
-      result.sort((a, b) => a.price - b.price);
+      result.sort((a: any, b: any) => a.price - b.price);
     } else if (sortBy === 'price-desc') {
-      result.sort((a, b) => b.price - a.price);
-    } else {
-      result.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+      result.sort((a: any, b: any) => b.price - a.price);
     }
 
     return result;
-  }, [searchQuery, filterCondition, filterPrice, sortBy]);
+  }, [cardsData, searchResults, searchQuery, filterCondition, filterPrice, sortBy]);
 
   if (loading) {
     return (
@@ -200,27 +152,33 @@ export default function Home() {
 
           {/* Resultados */}
           <p className="text-sm text-muted-foreground mt-4">
-            {filteredCards.length} carta{filteredCards.length !== 1 ? 's' : ''} encontrada{filteredCards.length !== 1 ? 's' : ''}
+            {cardsLoading ? 'Carregando...' : `${filteredCards.length} carta${filteredCards.length !== 1 ? 's' : ''} encontrada${filteredCards.length !== 1 ? 's' : ''}`}
           </p>
         </div>
       </div>
 
       {/* Grid de Cards */}
       <div className="max-w-7xl mx-auto px-4 py-8">
-        {filteredCards.length > 0 ? (
+        {cardsLoading ? (
+          <div className="text-center py-12">
+            <p className="text-muted-foreground">Carregando cartas...</p>
+          </div>
+        ) : filteredCards.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-            {filteredCards.map((card) => (
+            {filteredCards.map((card: any) => (
               <div
                 key={card.id}
                 className="bg-card border border-border rounded-lg overflow-hidden hover:border-red-600/50 transition-all duration-200 cursor-pointer group"
               >
                 {/* Imagem */}
                 <div className="relative overflow-hidden bg-background h-64">
-                  <img
-                    src={card.image}
-                    alt={card.name}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                  />
+                  {card.images && (
+                    <img
+                      src={card.images}
+                      alt={card.name}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                    />
+                  )}
 
                   {/* Badge Troca */}
                   {card.acceptsTrade && (
@@ -237,13 +195,13 @@ export default function Home() {
                     {card.name}
                   </h3>
                   <p className="text-xs text-muted-foreground mb-3">
-                    {card.series} • {card.number}
+                    {card.series} • {card.cardNumber}
                   </p>
 
                   {/* Preço */}
                   <div className="mb-3">
                     <p className="text-2xl font-bold text-red-600">
-                      R$ {card.price.toFixed(2)}
+                      R$ {Number(card.price).toFixed(2)}
                     </p>
                   </div>
 
@@ -253,11 +211,6 @@ export default function Home() {
                       {card.condition} - {card.conditionScore}/10
                     </span>
                   </div>
-
-                  {/* Vendedor */}
-                  <p className="text-xs text-muted-foreground mb-4">
-                    Vendedor: <span className="font-semibold text-foreground">{card.vendorName}</span>
-                  </p>
 
                   {/* Botões */}
                   <div className="flex gap-2">
