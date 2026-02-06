@@ -499,19 +499,19 @@ For questions, issues, or suggestions:
 ## 📸 Screenshots
 
 ### Marketplace - Browse & Search
-![Marketplace](./docs/marketplace-screenshot.png)
+![Marketplace](https://files.manuscdn.com/user_upload_by_module/session_file/310419663028502396/EoywJarMrGGZTNDM.png)
 *Discover Pokémon cards with advanced filtering, view seller ratings, and manage your collection*
 
 ### Checkout - Secure Payment
-![Checkout](./docs/checkout-screenshot.png)
+![Checkout](https://files.manuscdn.com/user_upload_by_module/session_file/310419663028502396/EACzaNcZGOZoNSfE.png)
 *Multi-step checkout with PIX payment integration and proof-of-payment upload*
 
 ### Chat - Direct Messaging
-![Chat](./docs/chat-screenshot.png)
+![Chat](https://files.manuscdn.com/user_upload_by_module/session_file/310419663028502396/dEFKmSoaJQFATDzP.png)
 *Real-time communication between buyers and sellers for negotiation and support*
 
 ### Seller Profile - Reputation & History
-![Profile](./docs/profile-screenshot.png)
+![Profile](https://files.manuscdn.com/user_upload_by_module/session_file/310419663028502396/OrojXulCjcCbmBko.png)
 *Complete seller information with ratings, transaction history, and cards for sale*
 
 ---
