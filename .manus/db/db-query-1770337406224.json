@@ -1,0 +1,9 @@
+{
+  "query": "DELETE FROM cards; DELETE FROM transactions; DELETE FROM reviews; DELETE FROM tradeProposals; DELETE FROM chatMessages; DELETE FROM notifications; DELETE FROM wishlist;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway02.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2Mv4QqzxfdF5rFv.root --database VcCmu8U4DkPJmqJv534cHa --execute DELETE FROM cards; DELETE FROM transactions; DELETE FROM reviews; DELETE FROM tradeProposals; DELETE FROM chatMessages; DELETE FROM notifications; DELETE FROM wishlist;",
+  "rows": [],
+  "messages": [],
+  "stdout": "",
+  "stderr": "",
+  "execution_time_ms": 785
+}
